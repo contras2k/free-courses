@@ -16,6 +16,10 @@ t = t1 + t2
 result=""
 
 hours = t / 3600
+secs = t % 3600
+mins = secs / 60
+secs %= 60
+
 if hours > 0
   h0 = hours % 10
   suffix = " "
@@ -27,9 +31,7 @@ if hours > 0
   result = hours.to_s + " час" + suffix
   end
 
-secs = t % 3600
-mins = secs / 60
-if hours > 0 or mins > 0
+if mins > 0
   m0 = mins % 10
   suffix = "а "
   if (5..9) === m0 or m0 == 0 or (11..14) === mins
@@ -40,14 +42,15 @@ if hours > 0 or mins > 0
   result = result + mins.to_s + " минут" + suffix
   end
 
-secs %= 60
-s0 = secs % 10
-suffix = "а"
-if (5..9) === s0 or s0 == 0 or (11..14) === secs
-  suffix = ""
-elsif (2..4) === s0
-  suffix = "ы"
+if secs > 0
+  s0 = secs % 10
+  suffix = "а"
+  if (5..9) === s0 or s0 == 0 or (11..14) === secs
+    suffix = ""
+  elsif (2..4) === s0
+    suffix = "ы"
+    end
+  result = result + secs.to_s + " секунд" + suffix
   end
-result = result + secs.to_s + " секунд" + suffix
 
 puts result
